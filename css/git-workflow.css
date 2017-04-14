@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab|Raleway|Source+Code+Pro');
+
+html, body {
+  font-family: 'Lato', sans-serif;
+  font-weight: normal;
+  padding: 1em;
+  margin: 0;
+  background-color: #F4F4F4;
+  color: #333;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Roboto Slab', sans-serif;
+  font-weight: normal;
+}
+
+code {
+  font-family: 'Source Code Pro', monospace;
+  color: #555;
+}
+
+li { padding: 0.25em 0; }
+
+#menu {
+  display: block;
+  padding: 0.5em;
+}
+
+.panel-graph {
+  /*width: 60%;*/
+  float: left;
+  background-color: #FFF;
+  border: 1px solid #999;
+}
+.panel-article { width: 40%; float: left; padding: 0 1em; }

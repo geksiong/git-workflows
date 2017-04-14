@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Git Workflows</title>
+  <link rel="stylesheet" type="text/css" href="vendor/gitgraph/gitgraph.css" />
+  <link rel="stylesheet" type="text/css" href="css/git-workflow.css" />
+</head>
+<body>
+  <div>
+    <h1>Notes on various Git Branching Workflows</h1>
+    <p>These are my personal notes on several Git branching workflows, starting with the well-known (and frequently debated) <a href="http://nvie.com/posts/a-successful-git-branching-model/">Git Flow.</a></p>
+    <p>The git network graph diagrams are rendered using <a href="https://github.com/nicoespeon/gitgraph.js">gitgraph.js</a>.</p>
+  </div>
+  <div id="menu">
+      <a href="#gitflow">Git Flow</a> | (more to come...)</p>
+  </div>
+  <div id="#gitflow" class="panel">
+    <div class="panel-graph">
+      <canvas id="gitGraph-gitflow"></canvas>
+    </div>
+    <div class="panel-article">
+# Git Flow
+
+## Reference
+
+* http://nvie.com/posts/a-successful-git-branching-model/
+
+## Notes
+
+### Branches
+
+* The only **permanent branches** are the `master` and `develop` branches. The `master` branch is the production branch.
+* **Feature branches** are usually *local* branches.
+* **Hotfix branches** are also local branches, but in practice they may be pushed to remote first for continuous integration, when they can be tagged as 'release candidate'.
+* **Release branches** are remote *integration* branches (that is, they are actually *release candidates*), but they are *deleted after they are merged to `master`*.
+
+### Development
+
+* Feature branches can be created *anytime* on the `develop` branch. There is no mandated 'synchronisation point' where everyone merge back and then branch out again.
+* Development actually also be done directly on the `develop` branch. Nevertheless, you are still encouraged to *branch locally* anyway as a matter of good practice, except for the most trivial tasks.
+* Since feature branches are local, you can cleanup your local commits before pushing to remote, by squashing or rebasing. But don't change anything you have already pushed.
+* In reality, the picture is not so pretty - the diagram does not depict developers pulling new commits from `develop` branch into their feature branches to keep up. The resulting merges tend to make the git history hard to read. More experienced developers may want to do a `pull --rebase` instead.
+* *Feature branches are not meant to be long-lived*. It is extremely difficult to keep a long-lived feature branch clean in the midst of fast and furious development. Features should therefore be *small enough that they can be developed by a single person*.
+* Anything that is already merged to `develop` branch cannot be 'unmerged'. Risky feature development may be manageable using techniques such as '[Feature Toggles](https://martinfowler.com/articles/feature-toggles.html)'.
+
+### Releases
+
+* After a release branch is created, *all fixes related to the release must be done on the release branch*. These fixes will end up in the `develop` branch after the release is concluded and merged to `master`.
+
+### Hotfixes
+
+* Hotfixes branch out from `master`, and are subsequently are merged back to `master` and `develop`. Hotfixes skip the release branch process.
+* Note that there is actually a special case - when hotfixes occur *while a release is on-going*, and the hotfix is relevant to the release, they need to be *merged into the `release` branch* as well.
+    </div>
+  </div>
+
+  <script src="vendor/marked/marked.js"></script>
+  <script src="vendor/gitgraph/gitgraph.js"></script>
+  <script src="js/gitworkflow-common.js"></script>
+  <script src="js/gitworkflow-gitflow.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
